@@ -1,0 +1,102 @@
+.page {
+  max-width: 1280px;
+
+  color: var(--primary-color);
+  font-family: var(--primary-font);
+  margin: auto;
+  background-color: #000000;
+}
+.header {
+  max-width: 880px;
+  width: 100%;
+  padding-top: 45px;
+  border-bottom: 1px solid #545454;
+  margin: 0 auto 40px;
+}
+.main {
+  max-width: 1280px;
+  margin: auto;
+  border: 1px solid red;
+}
+.profile {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.profile__container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.profile__info {
+  display: grid;
+  grid-template-areas:
+    "name button"
+    "description description";
+}
+
+.profile__name {
+  grid-area: name;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0 18px 16px 0;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.profile__description {
+  grid-area: description;
+  font-weight: 400;
+  font-size: 18px;
+  color: #ffffff;
+}
+.profile__edit-button {
+  grid-area: button;
+  width: 24px;
+  height: 24px;
+  align-self: center;
+  background: transparent;
+  border: 1px solid #ffffff;
+}
+
+.profile__edit-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.profile__edit-button-image {
+  width: 10px;
+  height: 10px;
+  align-self: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.profile__edit-button_image:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.profile__add-button {
+  width: 150px;
+  height: 50px;
+  align-self: center;
+  background: transparent;
+  border: 2px solid #ffffff;
+  margin-left: auto;
+}
+
+.profile__add-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.profile__add-button-image {
+  width: 22px;
+  height: 22px;
+  align-self: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
