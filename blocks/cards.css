@@ -2,11 +2,12 @@
   display: grid;
   max-width: 880px;
   grid-template-columns: repeat(auto-fit, 282px);
-  width: 100%;
   column-gap: 17px;
   row-gap: 20px;
   margin: 50px auto;
+  justify-content: center;
   grid-template-rows: auto;
+  padding-inline-start: 0px;
 }
 .card {
   position: relative;
@@ -27,21 +28,26 @@
 .card__title {
   color: #000000;
 }
-.card__trash {
-  color: white;
-}
-@media screen and (max-width: 800px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 282px;
-    margin: 44px auto;
-  }
+
+.card__footer {
+  background-color: white;
+  display: flex;
+  border-radius: 0 0 10px 10px;
 }
 
-@media screen and (max-width: 580px) {
-  .cards {
-    grid-template-columns: 1fr;
-    width: fit-content;
-    margin: 36px auto 19px;
-  }
+.card__trash {
+  position: absolute;
+  top: 300px;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  background-color: #f0efef;
+  border: none;
+}
+.card__heart {
+  height: 20px;
+  width: 20px;
+  align-self: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
