@@ -1,1 +1,1 @@
-# Tripleten web_project_around
+# web_project_arounEste projeto é sobre USA afora, desenvolvido com HTML e CSS, seguindo a metodologia BEM (Block, Element, Modifier) para a estruturação do CSS e uma divisão de arquivos CSS por blocos para melhor organização e manutenção. Tecnologias . Figma . HTML5 para estruura da pagiga . CSS3 para organização e estilização do layout . Metodologia BEM . Cronstrução de BLOCKS . Criação de responsividade do site . Criação de grid e por ultimo começo de uso de javascript para fazer algumas interçôes.

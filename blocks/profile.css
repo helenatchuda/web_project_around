@@ -90,6 +90,12 @@
 }
 
 @media screen and (max-width: 580px) {
+  .profile__container {
+    flex-direction: column;
+  }
+  .profile__add-button {
+    margin-left: 0;
+  }
   .profile {
     grid-template-columns: 1fr;
     width: fit-content;

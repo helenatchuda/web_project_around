@@ -1,0 +1,22 @@
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.popup__opened {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.popup__container {
+  position: relative;
+  width: 430px;
+  background-color: red;
+  height: 1000px;
+  border-radius: 10px;
+}
