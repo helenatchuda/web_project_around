@@ -45,9 +45,13 @@
   border: none;
 }
 .card__heart {
-  height: 20px;
-  width: 20px;
-  align-self: center;
+  position: absolute;
+
+  bottom: 30px;
+  right: 17px;
+  width: 25px;
+  height: 22px;
+  color: #000000;
   background-repeat: no-repeat;
   background-size: contain;
 }
