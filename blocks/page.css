@@ -1,6 +1,7 @@
 .page {
+  font-family: "Inter", monospace;
   color: var(--primary-color);
-  font-family: var(--primary-font);
+
   margin: 0 auto;
 }
 
