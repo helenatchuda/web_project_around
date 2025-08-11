@@ -13,27 +13,30 @@
   <body>
     <div class="page">
 
-      <header class="header">
-        <img src="./images/Vector (1).png" alt="A imagem escrita em forma de logo" class="header__logo" />
+  <header class="header">
+    <img src="./images/Vector (1).png" alt="A imagem escrita em forma de logo" class="header__logo" />
+  </header>
 
-      </header>
-    <main class="main">
-      <section class="profile">
-        <div class="profile__container">
-          <img src="./images/Avatar.png" alt="foto de perfil" class="profile__avatar" />
-          <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
-            <h2 class="profile__description">Explorador</h2>
-            <button class="profile__edit-button">
-               <img src="./images/Vector (2).png" alt="botão de editar perfil" class="" />
-            </button>
-          </div>
+  <main class="main">
+    <section class="profile">
+      <div class="profile__container">
+        <img src="./images/Avatar.png" alt="foto de perfil" class="profile__avatar" />
+        <div class="profile__info">
+          <h1 class="profile__name">Jacques Cousteau</h1>
+          <h2 class="profile__description">Explorador</h2>
+          <button class="profile__edit-button">
+            <img src="./images/Vector (2).png" alt="botão de editar perfil" class="" />
+          </button>
+        </div>
 
         <button class="profile__add-button">
           <img src="./images/Vector (3).png" alt="sinal mais para adicionar" class="" />
         </button>
-        </div>
-      </section>
+      </div>
+    </section>
+  </main>
+
+</div>
 
 
   <ul class="cards">
@@ -98,10 +101,10 @@
               src="./images/Close Icon.png"
               alt=""
               class="popup__close"
-              onclick="closePopup(this.closest('.popup'))" />
+               />
 
     <h2 class="popup__title">Editar Perfil</h2>
-     <form class="popup__form form" onsubmit="submitForm(event)">
+     <form class="popup__form form">
               <input type="text" id="name" class="form__input" placeholder="Nome" maxlength="24" />
               <input
                 type="text"
@@ -123,9 +126,9 @@
               src="./images/Close Icon.png"
               alt=""
               class="popup__close"
-              onclick="closePopup(this.closest('.popup'))" />
+              />
     <h2 class="popup__title">Novo Cartão</h2>
-    <form class="popup__form form" onsubmit="submitForm(event)">
+    <form class="popup__form form">
               <input
                 type="text"
                 id="titulo"
@@ -145,15 +148,12 @@
               src="./images/Close Icon.png"
               alt=""
               class="popup__close"
-              onclick="closePopup(this.closest('.popup'))" />
+               />
             <img src="" alt="" class="popup__image" />
             <h2 class="popup__image-title"></h2>
           </div>
         </div>
       </main>
-
-
-    </main>
 
     <footer class="footer">
         <h2 class="footer__copyright">&#169; 2024 Around The U.S.</h2>
