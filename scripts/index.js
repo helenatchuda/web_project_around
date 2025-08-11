@@ -8,7 +8,8 @@ const imagePopup = document.querySelector("#image-popup");
 const popupImage = imagePopup.querySelector(".popup__image");
 const titleImage = imagePopup.querySelector(".popup__image-title");
 const iditbutton = document.querySelector(".profile__edit-button");
-
+const formElement = document.querySelector(".popup__form form");
+const xclose = document.querySelector(".popup__close");
 imagePopup.addEventListener("click", (event) => {
   const clickedOutside = !event.target.closest(".popup__container-image");
   if (clickedOutside) {
@@ -103,4 +104,17 @@ function submitForm(event) {
   }
 
   closePopup(popupElement);
+}
+if (formElement) {
+  formElement.addEventListener("submit", (e) => submitForm(e));
+} else {
+  console.error("Formulário não encontrado no DOM!");
+}
+
+if (xclose) {
+  xclose.addEventListener("click", () =>
+    closePopup(document.querySelector(".popup"))
+  );
+} else {
+  console.warn("Elemento '.popup__close' não encontrado.");
 }
