@@ -52,106 +52,27 @@
       </main>
     </div>
 
+  <template id="card-template">
+    <li class="card">
+        <img
+          src="#"
+          alt="Imagem do card"
+          class="card__image"
+        />
+        <button class="card__trash"></button>
+        <div class="card__footer">
+          <h2 class="card__title"></h2>
+          <img
+            src="./images/heart.png"
+            alt="Imagem do coracao"
+            class="card__heart"
+          />
+        </div>
+      </li>
+  </template>
+
     <ul class="cards">
-      <li class="card">
-        <img
-          src="./images/image1_card.jpg"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title">Vale de Yosemite</h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
-      <li class="card">
-        <img
-          src="./images/image2_card.png"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title">Lago Louise</h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
 
-      <li class="card">
-        <img
-          src="./images/iamge3_card.png"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title">Montanhas Care...</h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
-
-      <li class="card">
-        <img
-          src="./images/image4_card.png"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title">Latemar</h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
-
-      <li class="card">
-        <img
-          src="./images/image5_card.png"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title">Parque Nacional...</h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
-      <li class="card">
-        <img
-          src="./images/image6_card.png"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title">Lago di Braies</h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
     </ul>
 
     <div class="popup" id="edit-popup" data-type="edit">
@@ -179,7 +100,7 @@
       </div>
     </div>
 
-    <div class="popup" id="new-card-popup">
+    <div class="popup" id="new-card-popup" data-type="new-card">
       <div class="popup__container">
         <img src="./images/Close Icon.png" alt="" class="popup__close" />
         <h2 class="popup__title">Novo Cartão</h2>
@@ -188,6 +109,7 @@
             type="text"
             id="titulo"
             class="form__input"
+            required
             placeholder="Título"
             maxlength="24"
           />
@@ -195,6 +117,7 @@
             type="text"
             id="url-link"
             class="form__input"
+             required
             placeholder="Link de imagem"
           />
           <button type="submit" class="popup__save-button">Criar</button>
@@ -216,3 +139,4 @@
     <script src="./scripts/index.js"></script>
   </body>
 </html>
+
