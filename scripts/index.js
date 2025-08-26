@@ -9,9 +9,9 @@ const imagePopup = document.querySelector("#image-popup");
 const popupImage = imagePopup.querySelector(".popup__image");
 const titleImage = imagePopup.querySelector(".popup__image-title");
 const iditbutton = document.querySelector(".profile__edit-button");
-const formElement = document.querySelector(".popup__form");
+const formElements = document.querySelectorAll(".popup__form");
 
-const xclose = document.querySelector(".popup__close");
+const xcloses = document.querySelectorAll(".popup__close");
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -30,7 +30,7 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg"
   },
   {
-    name: "Parque Nacional da Vanoise ",
+    name: "Parque Nacional ",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg"
   },
   {
@@ -109,12 +109,12 @@ function closePopup(popupElement) {
 
 function submitForm(event) {
   event.preventDefault();
-  console.log("submitfirm")
+
 
   const form = event.target;
   const popupElement = form.closest(".popup");
   const type = popupElement.dataset.type;
- console.log(type)
+
   if (type === "edit") {
     const inputName = popupElement.querySelector("#name");
     const inputDescription = popupElement.querySelector("#description");
@@ -123,9 +123,10 @@ function submitForm(event) {
     descriptionElement.textContent = inputDescription.value;
     popupElement.classList.remove("popup__opened");
   }
-   console.log(type)
+
+
   if (type === "new-card") {
-    console.log("este é formulario do card");
+
     const title = popupElement.querySelector("#titulo").value;
     const link = popupElement.querySelector("#url-link").value;
 
@@ -134,40 +135,26 @@ function submitForm(event) {
       link: link,
     };
 
-    addCard(cardData);
+
+    renderCard(cardData,elementContainer);
   }
 
   closePopup(popupElement);
 }
 
-formElement.addEventListener("submit", (e) => submitForm(e));
+formElements.forEach(form => form.addEventListener("submit", (e) => submitForm(e)));
 
 
-if (xclose) {
-  xclose.addEventListener("click", () =>
-    closePopup(document.querySelector(".popup"))
-  );
+if (xcloses) {
+
+  xcloses.forEach(element=> element.addEventListener("click", () =>
+    closePopup(element.closest(".popup"))
+  ));
 } else {
   console.warn("Elemento '.popup__close' não encontrado.");
 }
 
-function addCard(card) {
 
-  const cardElement = cardTemplate.cloneNode(true);
-
-
-  const img = cardElement.querySelector(".card__image");
-  const titleElement = cardElement.querySelector(".card__title");
-
-  img.src = card.link;
-  img.alt = card.name;
-  titleElement.textContent = card.name;
-
-
- return cardElement
-
-
-}
 function renderCard(data, wrap){
   wrap.prepend(addCard(data))
 }
@@ -175,6 +162,34 @@ function renderCard(data, wrap){
 initialCards.forEach((card)=>{
   renderCard(card,elementContainer)
 })
+
+
+
+function addCard(card) {
+  const cardElement = cardTemplate.cloneNode(true);
+
+  const img = cardElement.querySelector(".card__image");
+  const titleElement = cardElement.querySelector(".card__title");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+  const heartIcon = cardElement.querySelector(".card__heart");
+
+  img.src = card.link;
+  img.alt = card.name;
+  titleElement.textContent = card.name;
+
+
+  heartIcon.addEventListener("click", () => {
+    heartIcon.classList.toggle("card__heart--active");
+  });
+
+
+  deleteButton.addEventListener("click", (event) => {
+   event.target.closest(".card").remove()
+  });
+
+  return cardElement;
+}
+
 
 
 

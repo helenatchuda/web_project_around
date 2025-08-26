@@ -52,24 +52,21 @@
       </main>
     </div>
 
-  <template id="card-template">
-    <li class="card">
-        <img
-          src="#"
-          alt="Imagem do card"
-          class="card__image"
-        />
-        <button class="card__trash"></button>
-        <div class="card__footer">
-          <h2 class="card__title"></h2>
-          <img
-            src="./images/heart.png"
-            alt="Imagem do coracao"
-            class="card__heart"
-          />
-        </div>
-      </li>
-  </template>
+<template id="card-template">
+  <li class="card">
+    <div class="card__image-container">
+      <img src="#" alt="Imagem do card" class="card__image" />
+      <button class="card__delete-button">
+        <img src="./images/Trash_lixeira.png" alt="Apagar" class="card__trash-icon" />
+      </button>
+    </div>
+    <div class="card__footer">
+      <h2 class="card__title"></h2>
+      <img src="./images/heart.png" alt="Curtir" class="card__heart" />
+    </div>
+  </li>
+</template>
+
 
     <ul class="cards">
 
@@ -129,7 +126,7 @@
       <div class="popup__container-image">
         <img src="./images/Close Icon.png" alt="" class="popup__close" />
         <img src="" alt="" class="popup__image" />
-        <h2 class="popup__image-title"></h2>
+        <p class="popup__image-title"></p>
       </div>
     </div>
 

@@ -74,6 +74,17 @@
   right: -45px;
   width: 40px;
 }
+.popup__container-image{
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
+
+
+}
+.popup__image-title{
+  color:#FFFFFF;
+
+}
 @media screen and (max-width: 544px) {
   .popup__button {
     font-size: 14px;
@@ -105,3 +116,4 @@
     line-height: 22px;
   }
 }
+
