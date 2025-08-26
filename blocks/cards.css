@@ -57,3 +57,35 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+
+.card__heart--active {
+  filter: invert(34%) sepia(90%) saturate(430%) hue-rotate(326deg) brightness(103%) contrast(101%);
+  cursor: pointer;
+}
+
+/*.card__delete-button {
+    width: 20px;
+  height: 25px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+
+  border: none;
+
+
+
+
+}*/
+.card__trash-icon{
+   width: 18px;
+  height: 19.3px;
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  color:  #FFFFFF;
+
+
+}
+
+
