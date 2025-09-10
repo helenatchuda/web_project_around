@@ -8,10 +8,12 @@ const descriptionElement = profileInfo.querySelector(".profile__description");
 const imagePopup = document.querySelector("#image-popup");
 const popupImage = imagePopup.querySelector(".popup__image");
 const titleImage = imagePopup.querySelector(".popup__image-title");
-const iditbutton = document.querySelector(".profile__edit-button");
+const editButton = document.querySelector(".profile__edit-button");
+
 const formElements = document.querySelectorAll(".popup__form");
 
-const xcloses = document.querySelectorAll(".popup__close");
+const popupCloseButtons = document.querySelectorAll(".popup__close");
+
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -145,9 +147,9 @@ function submitForm(event) {
 formElements.forEach(form => form.addEventListener("submit", (e) => submitForm(e)));
 
 
-if (xcloses) {
+if (popupCloseButtons) {
 
-  xcloses.forEach(element=> element.addEventListener("click", () =>
+  popupCloseButtons.forEach(element=> element.addEventListener("click", () =>
     closePopup(element.closest(".popup"))
   ));
 } else {
