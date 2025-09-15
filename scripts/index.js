@@ -1,3 +1,4 @@
+// Seletores principais
 const cardTemplate = document.querySelector("#card-template").content;
 const elementContainer = document.querySelector(".cards");
 const profileInfo = document.querySelector(".profile__container");
@@ -8,9 +9,14 @@ const descriptionElement = profileInfo.querySelector(".profile__description");
 const imagePopup = document.querySelector("#image-popup");
 const popupImage = imagePopup.querySelector(".popup__image");
 const titleImage = imagePopup.querySelector(".popup__image-title");
+
 const editButton = document.querySelector(".profile__edit-button");
 
 const formElements = document.querySelectorAll(".popup__form");
+const editForm = document.querySelector(".popup__form-edit-name");
+const nameInput = editForm.querySelector("#name");
+const descriptionInput = editForm.querySelector("#description");
+const saveButton = editForm.querySelector(".popup__save-button");
 
 const popupCloseButtons = document.querySelectorAll(".popup__close");
 
@@ -38,46 +44,41 @@ const initialCards = [
   {
     name: "Lago di Braies",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg"
-  }
+  }
 ];
+// Renderiza cartões iniciais
+initialCards.forEach(card => renderCard(card, elementContainer));
 
-
-
-imagePopup.addEventListener("click", (event) => {
-  const clickedOutside = !event.target.closest(".popup__container-image");
-  if (clickedOutside) {
-    closePopup(imagePopup);
-  }
+// Configura validação e comportamento do botão "Salvar"
+[nameInput, descriptionInput].forEach(input => {
+  input.addEventListener("input", () => {
+    checkInputValidity(input);
+    toggleButtonState();
+  });
 });
 
-elementContainer.addEventListener("click", (event) => {
-  if (event.target.classList.contains("card__icon")) {
-    event.target.classList.toggle("card__icon-active");
-  }
-
-  if (event.target.classList.contains("card__trash")) {
-    const cardRemove = event.target.closest(".card");
-    cardRemove.remove();
-  }
-
-  const clickedImage = event.target.closest(".card__image");
-
-  if (clickedImage) {
-    const cardElement = clickedImage.closest(".card");
-    const title = cardElement.querySelector(".card__title").textContent;
-
-    popupImage.src = clickedImage.src;
-    popupImage.alt = clickedImage.alt;
-    titleImage.textContent = title;
-    imagePopup.classList.add("popup__opened");
-  }
+editButton.addEventListener("click", () => {
+  checkInputValidity(nameInput);
+  checkInputValidity(descriptionInput);
+  toggleButtonState();
 });
 
-profileInfo.addEventListener("click", (event) => {
+// Alterna estado do botão conforme validade dos campos
+function toggleButtonState() {
+  const isFormValid = nameInput.validity.valid && descriptionInput.validity.valid;
+  saveButton.disabled = !isFormValid;
+  if (isFormValid) {
+    saveButton.classList.remove("popup__save-button_disabled");
+  } else {
+    saveButton.classList.add("popup__save-button_disabled");
+  }
+}
+
+// Configura popups (abrir e fechar)
+profileInfo.addEventListener("click", event => {
   if (event.target.closest(".profile__add-button")) {
     openPopup("new-card");
   }
-
   if (event.target.closest(".profile__edit-button")) {
     openPopup("edit");
   }
@@ -85,113 +86,116 @@ profileInfo.addEventListener("click", (event) => {
 
 function openPopup(type) {
   const popupElement = document.querySelector(`.popup[data-type="${type}"]`);
- console.log("popup-element",popupElement);
- console.log(`.popup[data-type="${type}"]`)
   if (type === "edit") {
-    const inputName = popupElement.querySelector("#name");
-    const inputDescription = popupElement.querySelector("#description");
-    inputName.value = nameElement.textContent;
-    inputDescription.value = descriptionElement.textContent;
+    nameInput.value = nameElement.textContent;
+    descriptionInput.value = descriptionElement.textContent;
   } else {
     popupElement.querySelector("form").reset();
   }
   popupElement.classList.add("popup__opened");
 }
-document.querySelectorAll(".popup").forEach((popupElement) => {
-  popupElement.addEventListener("click", (event) => {
-    if (event.target === popupElement) {
-      closePopup(popupElement);
+
+document.querySelectorAll(".popup").forEach(popup => {
+  popup.addEventListener("click", event => {
+    if (event.target === popup) {
+      closePopup(popup);
     }
   });
 });
 
-function closePopup(popupElement) {
-  popupElement.classList.remove("popup__opened");
+popupCloseButtons.forEach(btn => {
+  btn.addEventListener("click", () => closePopup(btn.closest(".popup")));
+});
+
+function closePopup(popup) {
+  popup.classList.remove("popup__opened");
 }
 
+// Manipulação da ação de "submit"
 function submitForm(event) {
   event.preventDefault();
-
-
   const form = event.target;
   const popupElement = form.closest(".popup");
-  const type = popupElement.dataset.type;
 
-  if (type === "edit") {
-    const inputName = popupElement.querySelector("#name");
-    const inputDescription = popupElement.querySelector("#description");
-
-    nameElement.textContent = inputName.value;
-    descriptionElement.textContent = inputDescription.value;
-    popupElement.classList.remove("popup__opened");
-  }
-
-
-  if (type === "new-card") {
-
+  if (popupElement.dataset.type === "edit") {
+    nameElement.textContent = nameInput.value;
+    descriptionElement.textContent = descriptionInput.value;
+  } else if (popupElement.dataset.type === "new-card") {
     const title = popupElement.querySelector("#titulo").value;
     const link = popupElement.querySelector("#url-link").value;
-
-    const cardData = {
-      name: title,
-      link: link,
-    };
-
-
-    renderCard(cardData,elementContainer);
+    renderCard({ name: title, link }, elementContainer);
   }
 
   closePopup(popupElement);
 }
 
-formElements.forEach(form => form.addEventListener("submit", (e) => submitForm(e)));
+formElements.forEach(form => form.addEventListener("submit", submitForm));
 
-
-if (popupCloseButtons) {
-
-  popupCloseButtons.forEach(element=> element.addEventListener("click", () =>
-    closePopup(element.closest(".popup"))
-  ));
-} else {
-  console.warn("Elemento '.popup__close' não encontrado.");
+// Funções auxiliares (renderiza cartão, validação visual)
+function renderCard(data, wrap) {
+  wrap.prepend(addCard(data));
 }
-
-
-function renderCard(data, wrap){
-  wrap.prepend(addCard(data))
-}
-
-initialCards.forEach((card)=>{
-  renderCard(card,elementContainer)
-})
-
-
 
 function addCard(card) {
-  const cardElement = cardTemplate.cloneNode(true);
-
-  const img = cardElement.querySelector(".card__image");
-  const titleElement = cardElement.querySelector(".card__title");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  const heartIcon = cardElement.querySelector(".card__heart");
+  const cardEl = cardTemplate.cloneNode(true);
+  const img = cardEl.querySelector(".card__image");
+  const titleEl = cardEl.querySelector(".card__title");
+  const deleteBtn = cardEl.querySelector(".card__delete-button");
+  const heartIcon = cardEl.querySelector(".card__heart");
 
   img.src = card.link;
   img.alt = card.name;
-  titleElement.textContent = card.name;
+  titleEl.textContent = card.name;
 
+  heartIcon.addEventListener("click", () => heartIcon.classList.toggle("card__heart--active"));
+  deleteBtn.addEventListener("click", event => event.target.closest(".card").remove());
 
-  heartIcon.addEventListener("click", () => {
-    heartIcon.classList.toggle("card__heart--active");
-  });
-
-
-  deleteButton.addEventListener("click", (event) => {
-   event.target.closest(".card").remove()
-  });
-
-  return cardElement;
+  return cardEl;
 }
 
+imagePopup.addEventListener("click", event => {
+  if (!event.target.closest(".popup__container-image")) {
+    closePopup(imagePopup);
+  }
+});
 
+elementContainer.addEventListener("click", event => {
+  // Curtir
+  if (event.target.classList.contains("card__heart")) {
+    event.target.classList.toggle("card__heart--active");
+  }
+  // Abrir imagem
+  const imgEl = event.target.closest(".card__image");
+  if (imgEl) {
+    const card = imgEl.closest(".card");
+    popupImage.src = imgEl.src;
+    popupImage.alt = imgEl.alt;
+    titleImage.textContent = card.querySelector(".card__title").textContent;
+    imagePopup.classList.add("popup__opened");
+  }
+});
+
+// Validação visual
+function showInputError(inputElement, errorMessage) {
+  const errorEl = document.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.add("form__input_type_error");
+  errorEl.textContent = errorMessage;
+  errorEl.classList.add("form__error_visible");
+}
+
+function hideInputError(inputElement) {
+  const errorEl = document.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.remove("form__input_type_error");
+  errorEl.textContent = "";
+  errorEl.classList.remove("form__error_visible");
+}
+
+function checkInputValidity(inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(inputElement);
+  }
+}
 
 
