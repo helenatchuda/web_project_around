@@ -120,21 +120,26 @@
         <img src="./images/Close Icon.png" alt="" class="popup__close" />
         <h2 class="popup__title">Novo Cartão</h2>
         <form class="popup__form form">
-          <input
-            type="text"
-            id="titulo"
-            class="form__input"
-            required
-            placeholder="Título"
-            maxlength="24"
-          />
-          <input
-            type="text"
-            id="url-link"
-            class="form__input"
-             required
-            placeholder="Link de imagem"
-          />
+         <input
+        type="text"
+        id="titulo"
+        aria-describedby="titulo-error"
+        class="form__input form__input-titulo"
+        required
+        placeholder="Título"
+        maxlength="24"
+      />
+      <span class="form__error" id="titulo-error" aria-live="polite"></span>
+
+      <input
+        type="text"
+        id="url-link"
+        aria-describedby="url-link-error"
+        class="form__input form__input-link"
+        required
+        placeholder="Link de imagem"
+      />
+      <span class="form__error" id="url-link-error" aria-live="polite"></span>
           <button type="submit" class="popup__save-button">Criar</button>
         </form>
       </div>

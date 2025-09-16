@@ -100,6 +100,21 @@
   margin-top: 12px;
   text-align: center;
 }
+.form__input_type_error {
+
+  border: 1px solid red;
+}
+
+.form__error_visible {
+
+  color: red;
+  display: block;
+}
+
+.popup__save-button_disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
 
 @media screen and (max-width: 544px) {
   .popup__button {
