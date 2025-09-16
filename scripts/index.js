@@ -19,6 +19,15 @@ const descriptionInput = editForm.querySelector("#description");
 const saveButton = editForm.querySelector(".popup__save-button");
 
 const popupCloseButtons = document.querySelectorAll(".popup__close");
+const tituloInput = document.querySelector(".form__input-titulo");
+const urlLinkInput = document.querySelector(".form__input-link");
+
+// --- Novas variáveis de erro / botão novo cartão ---
+const tituloError = document.querySelector("#titulo-error");
+const urlLinkError = document.querySelector("#url-link-error");
+const newCardSaveButton = document.querySelector("#new-card-popup .popup__save-button");
+
+// Continua o resto...
 
 const initialCards = [
   {
@@ -44,26 +53,29 @@ const initialCards = [
   {
     name: "Lago di Braies",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg"
-  }
+  }
 ];
+
 // Renderiza cartões iniciais
 initialCards.forEach(card => renderCard(card, elementContainer));
 
 // Configura validação e comportamento do botão "Salvar"
-[nameInput, descriptionInput].forEach(input => {
+[nameInput, descriptionInput, tituloInput, urlLinkInput].forEach(input => {
   input.addEventListener("input", () => {
     checkInputValidity(input);
     toggleButtonState();
+    toggleNewCardButtonState(); // Também verifica botão de novo cartão
   });
 });
 
 editButton.addEventListener("click", () => {
-  checkInputValidity(nameInput);
-  checkInputValidity(descriptionInput);
+  validateTitulo();
+  validateUrlLink();
   toggleButtonState();
+  toggleNewCardButtonState();
 });
 
-// Alterna estado do botão conforme validade dos campos
+// Alterna estado do botão conforme validade dos campos de perfil
 function toggleButtonState() {
   const isFormValid = nameInput.validity.valid && descriptionInput.validity.valid;
   saveButton.disabled = !isFormValid;
@@ -71,6 +83,17 @@ function toggleButtonState() {
     saveButton.classList.remove("popup__save-button_disabled");
   } else {
     saveButton.classList.add("popup__save-button_disabled");
+  }
+}
+
+// Alterna estado do botão do novo cartão
+function toggleNewCardButtonState() {
+  const isValid = tituloInput.validity.valid && urlLinkInput.validity.valid;
+  newCardSaveButton.disabled = !isValid;
+  if (isValid) {
+    newCardSaveButton.classList.remove("popup__save-button_disabled");
+  } else {
+    newCardSaveButton.classList.add("popup__save-button_disabled");
   }
 }
 
@@ -91,6 +114,14 @@ function openPopup(type) {
     descriptionInput.value = descriptionElement.textContent;
   } else {
     popupElement.querySelector("form").reset();
+    // limpar erros também
+    if (type === "new-card") {
+      tituloError.textContent = "";
+      urlLinkError.textContent = "";
+      tituloInput.classList.remove("form__input_type_error");
+      urlLinkInput.classList.remove("form__input_type_error");
+      toggleNewCardButtonState(); // para definir estado inicial do botão criar
+    }
   }
   popupElement.classList.add("popup__opened");
 }
@@ -110,6 +141,14 @@ popupCloseButtons.forEach(btn => {
 function closePopup(popup) {
   popup.classList.remove("popup__opened");
 }
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape" || event.key === "Esc" || event.keyCode === 27) {
+    const openPopup = document.querySelector(".popup.popup__opened");
+    if (openPopup) {
+      closePopup(openPopup);
+    }
+  }
+});
 
 // Manipulação da ação de "submit"
 function submitForm(event) {
@@ -121,12 +160,45 @@ function submitForm(event) {
     nameElement.textContent = nameInput.value;
     descriptionElement.textContent = descriptionInput.value;
   } else if (popupElement.dataset.type === "new-card") {
-    const title = popupElement.querySelector("#titulo").value;
-    const link = popupElement.querySelector("#url-link").value;
-    renderCard({ name: title, link }, elementContainer);
-  }
+    // validação adicional aqui: se campo(s) inválido(s), mostra erro e não continuar
+    let novoCartValido = true;
 
-  closePopup(popupElement);
+    // limpar mensagens de erro anteriores
+    tituloError.textContent = "";
+    urlLinkError.textContent = "";
+    tituloInput.classList.remove("form__input_type_error");
+    urlLinkInput.classList.remove("form__input_type_error");
+
+    if (!tituloInput.validity.valid) {
+      novoCartValido = false;
+      if (tituloInput.validity.valueMissing) {
+        tituloError.textContent = "Por favor, insira um título.";
+      } else if (tituloInput.validity.tooLong) {
+        tituloError.textContent = `O título deve ter no máximo ${tituloInput.maxLength} caracteres.`;
+      } else {
+        tituloError.textContent = "Título inválido.";
+      }
+      tituloInput.classList.add("form__input_type_error");
+    }
+
+    if (!urlLinkInput.validity.valid) {
+      novoCartValido = false;
+      if (urlLinkInput.validity.valueMissing) {
+        urlLinkError.textContent = "Por favor, insira um link de imagem.";
+      } else {
+        urlLinkError.textContent = "Link inválido.";
+      }
+      urlLinkInput.classList.add("form__input_type_error");
+    }
+
+    if (novoCartValido) {
+      const title = tituloInput.value;
+      const link = urlLinkInput.value;
+      renderCard({ name: title, link }, elementContainer);
+      closePopup(popupElement);
+      form.reset();
+    }
+  }
 }
 
 formElements.forEach(form => form.addEventListener("submit", submitForm));
@@ -175,27 +247,65 @@ elementContainer.addEventListener("click", event => {
   }
 });
 
-// Validação visual
-function showInputError(inputElement, errorMessage) {
-  const errorEl = document.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add("form__input_type_error");
-  errorEl.textContent = errorMessage;
-  errorEl.classList.add("form__error_visible");
-}
-
-function hideInputError(inputElement) {
-  const errorEl = document.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove("form__input_type_error");
-  errorEl.textContent = "";
-  errorEl.classList.remove("form__error_visible");
-}
-
-function checkInputValidity(inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(inputElement, inputElement.validationMessage);
+// Mantêm tuas funções de validação existentes
+function validateTitulo() {
+  if (!tituloInput.validity.valid) {
+    if (tituloInput.validity.valueMissing) {
+      showInputError(tituloInput, tituloError, "Por favor, insira um título.");
+    } else if (tituloInput.validity.tooLong) {
+      showInputError(tituloInput, tituloError, `O título deve ter no máximo ${tituloInput.maxLength} caracteres.`);
+    } else {
+      showInputError(tituloInput, tituloError, "Título inválido.");
+    }
   } else {
-    hideInputError(inputElement);
+    hideInputError(tituloInput, tituloError);
   }
 }
 
+function validateUrlLink() {
+  if (!urlLinkInput.validity.valid) {
+    if (urlLinkInput.validity.valueMissing) {
+      showInputError(urlLinkInput, urlLinkError, "Por favor, insira um link de imagem.");
+    } else {
+      showInputError(urlLinkInput, urlLinkError, "Link inválido.");
+    }
+  } else {
+    hideInputError(urlLinkInput, urlLinkError);
+  }
+}
+
+function showInputError(inputElement, errorElement, errorMessage) {
+  inputElement.classList.add("form__input_type_error");
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("form__error_visible");
+}
+
+function hideInputError(inputElement, errorElement) {
+  inputElement.classList.remove("form__input_type_error");
+  errorElement.textContent = "";
+  errorElement.classList.remove("form__error_visible");
+}
+
+function checkInputValidity(inputElement) {
+  // se quiseres, podes condicionar: apenas mostrar erro depois de interagir
+  if (!inputElement.validity.valid) {
+    // decidir qual span de erro mostrar
+    if (inputElement === tituloInput) {
+      showInputError(tituloInput, tituloError, inputElement.validationMessage);
+    } else if (inputElement === urlLinkInput) {
+      showInputError(urlLinkInput, urlLinkError, inputElement.validationMessage);
+    } else {
+      // campos de perfil
+      showInputError(inputElement, document.querySelector(`#${inputElement.id}-error`), inputElement.validationMessage);
+    }
+  } else {
+    if (inputElement === tituloInput) {
+      hideInputError(tituloInput, tituloError);
+    } else if (inputElement === urlLinkInput) {
+      hideInputError(urlLinkInput, urlLinkError);
+    } else {
+      hideInputError(inputElement, document.querySelector(`#${inputElement.id}-error`));
+    }
+  }
+}
 
