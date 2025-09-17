@@ -159,6 +159,7 @@ function submitForm(event) {
   if (popupElement.dataset.type === "edit") {
     nameElement.textContent = nameInput.value;
     descriptionElement.textContent = descriptionInput.value;
+    closePopup(popupElement)
   } else if (popupElement.dataset.type === "new-card") {
     // validação adicional aqui: se campo(s) inválido(s), mostra erro e não continuar
     let novoCartValido = true;
@@ -219,7 +220,10 @@ function addCard(card) {
   img.alt = card.name;
   titleEl.textContent = card.name;
 
-  heartIcon.addEventListener("click", () => heartIcon.classList.toggle("card__heart--active"));
+  heartIcon.addEventListener("click", () =>{
+    heartIcon.src="../images/heartativa.png"
+
+    heartIcon.classList.toggle("card__heart--active")});
   deleteBtn.addEventListener("click", event => event.target.closest(".card").remove());
 
   return cardEl;
