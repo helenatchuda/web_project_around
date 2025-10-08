@@ -88,5 +88,13 @@
 
 
 }
+.card__image-container {
+  margin: 0;
+   width: 100%;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
 
 
