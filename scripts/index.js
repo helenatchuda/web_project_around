@@ -2,9 +2,11 @@
 
 import { Card } from "./card.js";
 import { FormValidator } from "./FormValidator.js";
-import { openPopup, closePopup } from "./utils.js";
+import { openPopup, closePopup ,initialCards} from "./utils.js";
+
 
 // Seletor / variáveis do DOM
+
 const cardTemplate = document.querySelector("#card-template");
 const elementContainer = document.querySelector(".cards");
 const profileInfo = document.querySelector(".profile__container");
@@ -24,40 +26,16 @@ const nameInput = editForm.querySelector("#name");
 const descriptionInput = editForm.querySelector("#description");
 const saveButton = editForm.querySelector(".popup__save-button");
 
-const tituloInput = document.querySelector(".form__input-titulo");
+const titleInput = document.querySelector(".form__input-title");
 const urlLinkInput = document.querySelector(".form__input-link");
-const tituloError = document.querySelector("#titulo-error");
+const titleError = document.querySelector("#title-error");
 const urlLinkError = document.querySelector("#url-link-error");
 const newCardSaveButton = document.querySelector(
   "#new-card-popup .popup__save-button"
 );
 
-const initialCards = [
-  {
-    name: "Vale de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg"
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg"
-  },
-  {
-    name: "Montanhas Carecas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg"
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg"
-  },
-  {
-    name: "Parque Nacional ",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg"
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg"
-  }
-];
+
+
 // Configuração para validação
 const validationConfig = {
   inputSelector: ".form__input",
@@ -137,56 +115,4 @@ document.addEventListener("keydown", (evt) => {
   }
 });
 
-// Submit dos formulários (edição de perfil ou novo cartão)
-formElements.forEach(formEl => {
-  formEl.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    const popupEl = formEl.closest(".popup");
-
-    if (popupEl.dataset.type === "edit") {
-      nameElement.textContent = nameInput.value;
-      descriptionElement.textContent = descriptionInput.value;
-      closePopup(popupEl);
-    } else if (popupEl.dataset.type === "new-card") {
-      let valid = true;
-
-      // limpar erros anteriores
-      tituloError.textContent = "";
-      urlLinkError.textContent = "";
-      tituloInput.classList.remove("form__input_type_error");
-      urlLinkInput.classList.remove("form__input_type_error");
-
-      if (!tituloInput.validity.valid) {
-        valid = false;
-        if (tituloInput.validity.valueMissing) {
-          tituloError.textContent = "Por favor, insira um título.";
-        } else if (tituloInput.validity.tooLong) {
-          tituloError.textContent = `O título deve ter no máximo ${tituloInput.maxLength} caracteres.`;
-        } else {
-          tituloError.textContent = "Título inválido.";
-        }
-        tituloInput.classList.add("form__input_type_error");
-      }
-
-      if (!urlLinkInput.validity.valid) {
-        valid = false;
-        if (urlLinkInput.validity.valueMissing) {
-          urlLinkError.textContent = "Por favor, insira um link de imagem.";
-        } else {
-          urlLinkError.textContent = "Link inválido.";
-        }
-        urlLinkInput.classList.add("form__input_type_error");
-      }
-
-      if (valid) {
-        renderCard({
-          name: tituloInput.value,
-          link: urlLinkInput.value
-        });
-        closePopup(popupEl);
-        formEl.reset();
-      }
-    }
-  });
-});
 
