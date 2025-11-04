@@ -1,0 +1,151 @@
+.popup {
+  font-family: "Inter", Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+.popup__opened {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup__container {
+  text-align: center;
+  position: relative;
+  width: 430px;
+
+  height: auto;
+  background-color: rgb(241, 240, 240);
+  border-radius: 10px;
+  padding: 24px 0 34px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup__title {
+
+  margin: 34px 36px 54px 64px;
+  color: var(--secundary-color);
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+  position: relative;
+  top: -20px;
+  left: -105px;
+}
+
+.form__input {
+  width: 358px;
+  height: 40px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  box-sizing: border-box;
+  padding: 10px 0 0;
+  margin-bottom: 10px;
+}
+
+.popup__save-button {
+  display: inline-block;
+  width: 358px;
+  height: 50px;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 2px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.popup__close {
+  position: absolute;
+  top: -35px;
+  right: -45px;
+  width: 40px;
+}
+.popup__container-image{
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
+
+
+}
+.popup__image-title{
+  color:#FFFFFF;
+
+}
+.form__input[aria-invalid="true"] {
+  border-color: #e74c3c;
+}
+.form__error {
+  display: flex;
+  color: #e74c3c;
+  font-size: 0.9em;
+  min-height: 1.2em;
+}
+.form__error-summary {
+   color: #f33;
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+}
+.form__input_type_error {
+
+  border: 1px solid red;
+}
+
+.form__error_visible {
+
+  color: red;
+  display: block;
+}
+
+.popup__save-button_disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 544px) {
+  .popup__button {
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 46px;
+    height: 46px;
+  }
+
+  .popup__close {
+    right: 7px;
+    top: -30px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .popup__container {
+    width: 100%;
+    max-width: calc(100% - 19px * 2);
+    margin-top: 8px;
+    padding: 25px 22px;
+  }
+
+  .popup__form {
+    margin-top: 53px;
+  }
+
+  .popup__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
