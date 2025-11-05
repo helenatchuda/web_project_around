@@ -1,0 +1,25 @@
+{
+  "name": "webprojectaround",
+  "version": "1.0.0",
+  "description": "- Figma - HTML5 para estrutura da página - CSS3 para organização e estilização do layout - Metodologia BEM - Construção de BLOCKS - Criação de responsividade do site - Criação de grid - JavaScript para interações",
+  "main": "index.js",
+  "scripts": {
+
+    "build":"mkdir dist -Force; Copy-Item -Recurse src/* dist",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helenatchuda/web_project_around.git"
+  },
+  "author": "Helena Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/helenatchuda/web_project_around/issues"
+  },
+  "homepage": "https://github.com/helenatchuda/web_project_around#readme",
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "gh-pages": "^6.3.0"
+  }
+}
