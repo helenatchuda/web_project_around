@@ -1,2 +1,4 @@
 .DS_Store
-.vendor/normalize.css
+
+node_modules
+dist

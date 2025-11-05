@@ -6,3 +6,4 @@
 - Criação de responsividade do site
 - Criação de grid
 - JavaScript para interações
+- Api
