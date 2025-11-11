@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupEditProfile = new PopupWithForm(
     ".popup[data-type='edit']",
     (inputValues) => {
-
       userInfo.setUserInfo({
         name: inputValues.name,
         description: inputValues.description,
@@ -55,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupAddCard = new PopupWithForm(
     ".popup[data-type='new-card']",
     (inputValues) => {
-
       const newCardData = {
         name: inputValues.title,
         link: inputValues["url-link"],
@@ -150,6 +148,29 @@ function createCard(cardData) {
   return card;
 }
 
+  const cardElement = card.getCardElement();
+  section.addItem(cardElement);
+
+api
+  .getUsers()
+  .then((data) => {
+    // processa o resultado
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(err); // registra o erro no console
+  });
+
+api
+  .getInitialCards()
+  .then((data) => {
+    // processa o resultado
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log(err); //
+    //registra o erro no console
+  });
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
