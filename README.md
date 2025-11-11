@@ -7,3 +7,5 @@
 - Criação de grid
 - JavaScript para interações
 - Api
+- instalar dependências npm install
+- Github pages
