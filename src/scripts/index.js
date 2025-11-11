@@ -6,7 +6,7 @@ import { PopupWithForm } from "./components/PopupWithForm.js";
 import { PopupWithImage } from "./components/PopupWithImage.js";
 import { Section } from "./components/Section.js";
 import { UserInfo } from "./components/UserInfo.js";
-import { api } from "./components/api.js";
+import { api } from "./components/Api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // elementos DOM
@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupEditProfile = new PopupWithForm(
     ".popup[data-type='edit']",
     (inputValues) => {
+
       userInfo.setUserInfo({
         name: inputValues.name,
         description: inputValues.description,
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const popupAddCard = new PopupWithForm(
     ".popup[data-type='new-card']",
     (inputValues) => {
-      console.log(inputValues);
+
       const newCardData = {
         name: inputValues.title,
         link: inputValues["url-link"],
@@ -95,8 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
   api
     .getInicialData()
     .then(([userData, Cards]) => {
-      console.log(userData);
-      console.log(Cards);
+
+
 
       username.textContent = userData.name;
       about.textContent = userData.about;
@@ -139,36 +140,16 @@ const form = document.querySelector("form");
 
 
 function createCard(cardData) {
-  return new Card(
+  const card = new Card(
     { name: cardData.name, link: cardData.link },
     cardTemplate,
     (name, link) => {
       popupImage.open(name, link);
     }
   );
-  const cardElement = card.getCardElement();
-  section.addItem(cardElement);
+  return card;
 }
-api
-  .getUsers()
-  .then((data) => {
-    // processa o resultado
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log(err); // registra o erro no console
-  });
 
-api
-  .getInitialCards()
-  .then((data) => {
-    // processa o resultado
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log(err); //
-    //registra o erro no console
-  });
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();

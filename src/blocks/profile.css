@@ -30,14 +30,19 @@
   white-space: nowrap;
   color: #ffffff;
 }
-
 .profile__description {
   grid-area: description;
   font-weight: 400;
   font-size: 18px;
-   max-width: 15ch;
+  max-width: 15ch;
+  overflow: clip;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: #ffffff;
 }
+
+
+
 
 .profile__edit-button {
   grid-area: button;
