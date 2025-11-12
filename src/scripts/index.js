@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   section.renderItems();
 
   api
-    .getInicialData()
+    .getInitialData()
     .then(([userData, Cards]) => {
 
 
@@ -148,24 +148,22 @@ function createCard(cardData) {
   return card;
 }
 
-  const cardElement = card.getCardElement();
-  section.addItem(cardElement);
+
 
 api
   .getUsers()
   .then((data) => {
-    // processa o resultado
-    console.log(data);
+
   })
   .catch((err) => {
-    console.log(err); // registra o erro no console
+    console.log(err);
   });
 
 api
   .getInitialCards()
   .then((data) => {
     // processa o resultado
-    console.log(data);
+
   })
   .catch((err) => {
     console.log(err); //

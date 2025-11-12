@@ -4,7 +4,7 @@ class Api {
     this.headers= headers
     // corpo do construtor
   }
-  _handleServerResponse(rest){
+  _handleServerResponse(res){
     if (res.ok) {
         return res.json();
       }
@@ -23,9 +23,10 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
-  getInicialData(){
-  return Promise.all([this.getUsers(),this.getInitialCards()])
-  }
+   getInitialData() {
+  return Promise.all([this.getUsers(), this.getInitialCards()]);
+ }
+
   //PATCH https://around-api.pt-br.tripleten-services.com/v1/users/me
    setUserData({name,about}){
      return fetch(`${this._baseUrl}/users/me`,{
@@ -65,3 +66,6 @@ class Api {
     "Content-Type": "application/json"
   }
 });
+
+
+
